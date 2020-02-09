@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--secondary-color) !important;
+}
+
+
+.mainContainer {
+  width: 1200px;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  margin: 0 auto;
+}
+
+:root {
+  --primary-color: #192965;
+  --secondary-color: #f0efef;
+  --third-color: #bbcfff;
+  --fourth-color: #faafff;
+}
+
+i {
+  margin-left: 40px;
+}
+
+th {
+  text-align: center !important;
+}
+
+h4 {
+  margin-left: 280px;
+}
+
+#editButton {
+  color: orange;
+}
+
+#deleteButton {
+  color: red;
+}
+
+#addButton:hover {
+  background-color: var(--third-color);
+  color: var(--primary-color);
+  border: none;
+}
+
+#mainIcon {
+  margin-right: 40px !important;
+  color: var(--third-color)
+}
+
+.mainFooter {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: 2;
+  background-color: var(--fourth-color);
+  width: 100%;
+}
+
+p {
+  font-size: 9px;
+}
+
+i {
+  margin-right: 40px;
+  transition: all 1s;
+}
+
+i:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+}
+
+
+.projectForm {
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--third-color);
+  border-radius: 10px;
+}
+
+.btn-submit {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--fourth-color);
+  padding: 0.5rem;
+  width: 100px;
+}
+
+.btn-submit:hover {
+  border: none;
+  border-radius: 10px;
+  background-color: purple;
+  padding: 0.5rem;
+  width: 100px;
+  color: white;
+}
+
+.mainHeader {
+  background-color: var(--primary-color);
+  height: 200px;
+  color: var(--secondary-color);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "lato";
+
+}
