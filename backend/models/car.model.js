@@ -9,14 +9,16 @@ let CarSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    Owner: {
+    owner: {
         type: String,
-        required: true
+        required: true,
+
     },
     registration: {
         type: String,
         required: true,
-    },
+
+    }
 });
 
 module.exports = mongoose.model('Cars', CarSchema);

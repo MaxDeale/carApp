@@ -59,7 +59,7 @@ class App extends Component {
   addCar() {
     axios.post("/carApi", this.state.newCarData).then(res => {
       let { cars } = this.state;
-     
+
       cars.push(res.data);
 
       this.setState({
@@ -170,12 +170,12 @@ class App extends Component {
           <Button
             id="addButton"
             color="primary"
-            // binding the toggle modal function to the add new project button
+            // binding the toggle modal function to the add new car button
             onClick={this.toggleNewCarModal.bind(this)}
           >
             Add New
           </Button>
-          {/* NEW PROJECT MODAL FORM */}
+          {/* NEW CAR MODAL FORM */}
           <Modal
             isOpen={this.state.newCarModal}
             toggle={this.toggleNewCarModal.bind(this)}
