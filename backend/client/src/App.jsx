@@ -12,7 +12,7 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
-import Header from "./components/Header";
+import Header from "./Header";
 
 class App extends Component {
   state = {
@@ -26,6 +26,7 @@ class App extends Component {
       registration: ""
     },
     editCarData: {
+      _id: "",
       model: "",
       make: "",
       owner: "",
@@ -35,7 +36,7 @@ class App extends Component {
 
   // fetching the json Cars data from the /api endpoint in componentDidMount method using proxy
   componentDidMount() {
-    axios.get("/carApi").then(res => {
+    axios.get("/api/cars").then(res => {
       // console.log(res);
       // console.log(res.data);
       this.setState({ cars: res.data });
@@ -57,14 +58,14 @@ class App extends Component {
 
   // add Cars function, uses axios post request to api using form data from state
   addCar() {
-    axios.post("/carApi", this.state.newCarData).then(res => {
+    axios.post("/api/cars", this.state.newCarData).then(res => {
       let { cars } = this.state;
 
       cars.push(res.data);
 
       this.setState({
+        newCarModal: !this.state.newCarModal,
         cars,
-        newCarModal: false,
         // resetting the new project data back to empty strings for next project add
         newCarData: {
           model: "",
@@ -78,11 +79,12 @@ class App extends Component {
     });
   }
 
-  // edit project function, takes info from form and and it to state in edit variable
+  // edit car function, takes info from form and and it to state in edit variable
 
-  editCar(model, make, owner, registration) {
+  editCar(model, make, owner, registration, _id) {
     this.setState({
       editCarData: {
+        _id: "",
         model: "",
         make: "",
         owner: "",
@@ -92,13 +94,13 @@ class App extends Component {
     });
   }
 
-  // update project function, runs when update button is clicked - makes a put request to proxy api to update project with specific id and new info
+  // update car function, runs when update button is clicked - makes a put request to proxy api to update project with specific id and new info
 
   updateCar() {
-    let { model, make, owner, registration } = this.state.editCarData;
+    let { _id, model, make, owner, registration } = this.state.editCarData;
     axios
-      // adding the selected project id onto the put request URL
-      .put("/api/" + this.state.editCarData.id, {
+      // adding the selected car id onto the put request URL
+      .put("/api/cars/" + _id, {
         model,
         make,
         owner,
@@ -111,6 +113,7 @@ class App extends Component {
         this.setState({
           editCarModal: false,
           editCarData: {
+            _id: "",
             model: "",
             make: "",
             owner: "",
@@ -122,7 +125,7 @@ class App extends Component {
 
   // delete project function, sends a delete request to api with the selected project id
   deleteCar(id) {
-    axios.delete("/api/" + id).then(res => {
+    axios.delete("/api/cars/" + id).then(res => {
       this.componentDidMount();
     });
   }
@@ -132,7 +135,7 @@ class App extends Component {
     let cars = this.state.cars.map(car => {
       // returning a new table row for every time a project gets added
       return (
-        <tr key={car.id}>
+        <tr key={car._id}>
           <td>{car.model}</td>
           <td>{car.make}</td>
           <td>{car.owner}</td>
@@ -142,7 +145,7 @@ class App extends Component {
             <i
               onClick={this.editCar.bind(
                 this,
-                car.id,
+                car._id,
                 car.model,
                 car.make,
                 car.owner,
@@ -154,7 +157,7 @@ class App extends Component {
           </td>
           <td>
             <i
-              onClick={this.deleteCar.bind(this, car.id)}
+              onClick={this.deleteCar.bind(this, car._id)}
               className="fas fa-times fa-1.5x"
               id="deleteButton"
             ></i>
@@ -165,7 +168,12 @@ class App extends Component {
     return (
       <div>
         <Header />
-
+        <div id="filter">
+          <h4>Filter by year</h4>
+          <form action="">
+            <input id="yearSelect" type="number" />
+          </form>
+        </div>
         <div className="mainContainer">
           <Button
             id="addButton"
@@ -214,9 +222,9 @@ class App extends Component {
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="Owner">Owner</Label>
+                <Label for="owner">Owner</Label>
                 <Input
-                  id="Owner"
+                  id="owner"
                   value={this.state.newCarData.owner}
                   onChange={e => {
                     let { newCarData } = this.state;
@@ -267,7 +275,7 @@ class App extends Component {
             </ModalHeader>
             <ModalBody>
               <FormGroup>
-                <Label for="title">Title</Label>
+                <Label for="model">Model</Label>
                 <Input
                   id="title"
                   value={this.state.editCarData.title}
@@ -275,35 +283,49 @@ class App extends Component {
                   onChange={e => {
                     let { editCarData } = this.state;
                     // setting the value of the input for title to state
-                    editCarData.title = e.target.value;
+                    editCarData.model = e.target.value;
 
                     this.setState({ editCarData });
                   }}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="description">Description</Label>
+                <Label for="make">Make</Label>
                 <Input
                   id="description"
-                  value={this.state.editCarData.description}
+                  value={this.state.editCarData.make}
                   onChange={e => {
                     let { editCarData } = this.state;
 
-                    editCarData.description = e.target.value;
+                    editCarData.make = e.target.value;
 
                     this.setState({ editCarData });
                   }}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="URL">URL</Label>
+                <Label for="URL">Owner</Label>
                 <Input
                   id="URL"
-                  value={this.state.editCarData.URL}
+                  value={this.state.editCarData.owner}
                   onChange={e => {
                     let { editCarData } = this.state;
 
-                    editCarData.URL = e.target.value;
+                    editCarData.owner = e.target.value;
+
+                    this.setState({ editCarData });
+                  }}
+                ></Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="URL">Registration</Label>
+                <Input
+                  id="URL"
+                  value={this.state.editCarData.registration}
+                  onChange={e => {
+                    let { editCarData } = this.state;
+
+                    editCarData.registration = e.target.value;
 
                     this.setState({ editCarData });
                   }}
@@ -323,14 +345,15 @@ class App extends Component {
               </Button>
             </ModalFooter>
           </Modal>
+
           <Table className="projectTable" bordered hover striped variant="dark">
             <thead>
               <tr>
-                <th>#</th>
                 <th>Model</th>
                 <th>Make</th>
                 <th>Owner </th>
                 <th>Registration</th>
+                <th>Edit</th>
                 <th>Delete</th>
               </tr>
             </thead>

@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: var(--secondary-color) !important;
+  background-color: #27496d;
 }
 
 
@@ -15,6 +15,11 @@ body {
   align-self: center;
   justify-self: center;
   margin: 0 auto;
+}
+
+table {
+  background-color: #0c7b93;
+  color: white !important;
 }
 
 :root {
@@ -66,13 +71,30 @@ h4 {
   width: 100%;
 }
 
+#title {
+  font-size: 7rem;
+  font-family: "Trade Winds";
+  color: #00a8cc;
+}
+
 p {
   font-size: 9px;
 }
 
+#yearSelect {
+  margin-left: 280px;
+
+}
+
+#filter h4 {
+  color: white;
+}
+
 i {
-  margin-right: 40px;
+
   transition: all 1s;
+  display: flex;
+  justify-self: center;
 }
 
 i:hover {

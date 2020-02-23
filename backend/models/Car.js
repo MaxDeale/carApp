@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
-let CarSchema = mongoose.Schema({
+const CarSchema = mongoose.Schema({
+
+
     model: {
-        type: Number,
+        type: String,
         required: true
     },
     make: {
@@ -11,14 +13,14 @@ let CarSchema = mongoose.Schema({
     },
     owner: {
         type: String,
-        required: true,
-
+        required: true
     },
     registration: {
         type: String,
-        required: true,
-
+        required: true
     }
+
 });
 
-module.exports = mongoose.model('Cars', CarSchema);
+
+module.exports = mongoose.model('cars', CarSchema);

@@ -4,15 +4,28 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxDeale/carkeeper.git"
   },
   "author": "max",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxDeale/carkeeper/issues"
+  },
+  "homepage": "https://github.com/MaxDeale/carkeeper#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.1.0",
+    "config": "^3.2.5",
     "express": "^4.17.1",
-    "mongoose": "^5.8.11",
+    "mongoose": "^5.9.1",
     "nodemon": "^2.0.2"
   }
 }
